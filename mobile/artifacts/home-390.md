@@ -1,0 +1,25 @@
+- generic [ref=e3] [box=0,0,375,1171]:
+  - link "跳到内容" [ref=e4] [cursor=pointer] [box=12,-42,80,38]:
+    - /url: "#main-content"
+  - banner [ref=e109] [box=0,0,375,66]:
+    - button "打开导航菜单" [ref=e110] [cursor=pointer] [box=16,13,40,40]:
+      - img [ref=e111] [box=27,24,18,18]
+    - generic [ref=e112] [box=159,12,58,42]:
+      - strong [ref=e113] [box=159,12,58,22]: AI 求职台
+      - generic [ref=e114] [box=170,34,36,19]: 岗位台
+    - button "打开账户与数据" [ref=e115] [cursor=pointer] [box=319,13,40,40]:
+      - img [ref=e116] [box=330,24,18,18]
+  - main [ref=e59] [box=0,66,375,1104]:
+    - generic [ref=e60] [box=16,86,343,1060]:
+      - generic [ref=e61] [box=16,86,343,265]:
+        - generic [ref=e62] [box=35,105,306,162]
+        - button "新增岗位" [ref=e66] [cursor=pointer] [box=35,291,306,42]
+      - region "辅助入口" [ref=e68] [box=16,376,343,136]:
+        - button "JD 分析" [ref=e69] [cursor=pointer] [box=16,376,343,40]
+        - button "问题库" [ref=e75] [cursor=pointer] [box=16,424,343,40]
+        - button "简历" [ref=e79] [cursor=pointer] [box=16,472,343,40]
+      - region "岗位列表" [ref=e83] [box=16,536,343,367]:
+        - button "当前岗位 某 AI 教育科技创业公司 · AI 产品运营实习生 完成度 65 某 AI 教育科技创业公司 SQL 表达 简历具备部分岗位证据，但关键词覆盖和成果表达还需要补强。" [ref=e84] [cursor=pointer] [box=16,536,343,367]
+      - generic [ref=e100] [box=16,927,343,220]:
+        - generic [ref=e101] [box=35,946,306,74]
+        - generic [ref=e104] [box=35,1036,306,92]

@@ -1,0 +1,108 @@
+
+<div style="background:var(--color-background-tertiary);border-radius:var(--border-radius-lg);padding:16px;font-family:var(--font-sans)">
+  <h2 class="sr-only">实时助手驾驶舱页面线框图</h2>
+
+  <!-- Status Bar -->
+  <div style="background:#1A1A18;border-radius:var(--border-radius-md);padding:8px 16px;height:36px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:12px;color:#9E9E99">字节跳动 · 产品经理</span>
+      <span style="font-size:12px;color:#2D9D6B;font-weight:500">● 自动生成</span>
+      <span style="font-size:12px;color:#6B6B67">|</span>
+      <span style="font-size:12px;color:#9E9E99"><i class="ti ti-clock" style="font-size:11px" aria-hidden="true"></i> 00:18:34</span>
+      <span style="font-size:11px;color:#9E9E99;background:rgba(255,255,255,0.07);padding:2px 8px;border-radius:4px">3 题</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button style="font-size:11px;color:#9E9E99;border:0.5px solid rgba(255,255,255,0.15);background:transparent;border-radius:4px;padding:3px 10px;cursor:pointer">手动确认</button>
+      <button style="font-size:11px;color:#E8593C;border:0.5px solid #E8593C;background:transparent;border-radius:4px;padding:3px 10px;cursor:pointer">结束助手</button>
+    </div>
+  </div>
+
+  <!-- Main Area: Left + Right -->
+  <div style="display:grid;grid-template-columns:55% 1fr;gap:12px;min-height:380px">
+    <!-- Left: Voice Input -->
+    <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:20px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:12px;color:var(--color-text-tertiary);font-weight:500;letter-spacing:0.04em;text-transform:uppercase">语音输入</div>
+
+      <!-- Recognized text area -->
+      <div style="flex:1;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:14px;min-height:140px;position:relative">
+        <div style="font-size:14px;color:var(--color-text-primary);line-height:1.8">请介绍一下你在校期间做过的最有挑战的一个项目，你是如何规划和推进的？</div>
+        <div style="position:absolute;bottom:10px;right:10px;font-size:11px;color:var(--color-text-tertiary)">已识别 · 可编辑</div>
+      </div>
+
+      <!-- Voice control -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px">
+        <button style="font-size:12px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);background:transparent;border-radius:20px;padding:7px 14px;cursor:pointer">
+          <i class="ti ti-trash" style="font-size:12px;margin-right:4px" aria-hidden="true"></i>清空重录
+        </button>
+        <!-- Big record button -->
+        <div style="width:64px;height:64px;border-radius:50%;background:#E8593C;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 8px rgba(232,89,60,0.12)">
+          <i class="ti ti-microphone" style="font-size:24px;color:#fff" aria-hidden="true"></i>
+        </div>
+        <button style="font-size:12px;color:var(--color-text-info);border:0.5px solid var(--color-border-info);background:var(--color-background-info);border-radius:20px;padding:7px 14px;cursor:pointer">
+          生成提词卡 ↗
+        </button>
+      </div>
+
+      <!-- Text fallback hint -->
+      <div style="text-align:center;font-size:11px;color:var(--color-text-tertiary)">或直接在上方文本框输入面试官问题</div>
+    </div>
+
+    <!-- Right: Cue Card -->
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <!-- Current cue card -->
+      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:16px;flex:1">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+          <span style="font-size:11px;font-weight:500;color:#2D9D6B;background:rgba(45,157,107,0.1);padding:3px 8px;border-radius:4px">回答框架 · STAR法</span>
+          <span style="font-size:11px;color:#2D9D6B;background:rgba(45,157,107,0.08);padding:2px 8px;border-radius:4px">● 模型生成</span>
+        </div>
+
+        <!-- Opening -->
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:4px">开场句</div>
+          <div style="font-size:14px;font-weight:500;color:var(--color-text-primary);line-height:1.6">「我做过最有挑战的项目是XX，在这个过程中……」</div>
+        </div>
+
+        <!-- Key points -->
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:6px">要点</div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="font-size:13px;color:var(--color-text-primary);display:flex;gap:6px;align-items:flex-start"><span style="color:#2D9D6B;flex-shrink:0">·</span>挑战背景：资源有限/时间紧张/需跨团队协作</div>
+            <div style="font-size:13px;color:var(--color-text-primary);display:flex;gap:6px;align-items:flex-start"><span style="color:#2D9D6B;flex-shrink:0">·</span>你的决策：拆解目标 → 排序优先级 → 分配任务</div>
+            <div style="font-size:13px;color:var(--color-text-primary);display:flex;gap:6px;align-items:flex-start"><span style="color:#2D9D6B;flex-shrink:0">·</span>结果量化：用数据说话（完成率/GMV/用户数）</div>
+          </div>
+        </div>
+
+        <!-- Evidence -->
+        <div style="margin-bottom:10px;background:rgba(196,105,28,0.05);border-left:2px solid #C4691C;padding:8px 10px;border-radius:0 4px 4px 0">
+          <div style="font-size:11px;color:#C4691C;margin-bottom:3px">可引用证据（来自简历）</div>
+          <div style="font-size:12px;color:var(--color-text-primary)">校园电商节活动策划，带领6人团队，GMV提升40%</div>
+        </div>
+
+        <!-- Risk -->
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:#C4411C;margin-bottom:3px">⚠ 风险提醒</div>
+          <div style="font-size:12px;color:var(--color-text-secondary)">避免只讲过程不讲结果；追问可能涉及团队冲突处理</div>
+        </div>
+
+        <!-- Follow-up (collapsed) -->
+        <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:8px">
+          <div style="font-size:11px;color:var(--color-text-tertiary);cursor:pointer;display:flex;align-items:center;gap:4px">
+            <i class="ti ti-chevron-down" style="font-size:11px" aria-hidden="true"></i>可能追问（2条）
+          </div>
+        </div>
+      </div>
+
+      <!-- History card hint -->
+      <div style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 14px;opacity:0.6">
+        <div style="font-size:11px;color:var(--color-text-tertiary)">题目 #2 · 自我介绍 · 已处理</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px">向下滚动查看历史提词卡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Annotation -->
+  <div style="display:grid;grid-template-columns:55% 1fr;gap:12px;margin-top:10px;padding-top:10px;border-top:0.5px dashed var(--color-border-tertiary)">
+    <div style="font-size:11px;color:var(--color-text-tertiary)">◀ 左侧：语音输入为主焦点，大录音按钮直觉操作，文字框为备选</div>
+    <div style="font-size:11px;color:var(--color-text-tertiary)">▶ 右侧：提词卡分区明确，颜色编码区分类型，状态徽章诚实展示</div>
+  </div>
+</div>

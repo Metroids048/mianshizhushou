@@ -1,0 +1,40 @@
+- generic [ref=e3] [box=0,0,1280,720]:
+  - link "跳到内容" [ref=e4] [cursor=pointer] [box=12,-42,80,38]:
+    - /url: "#main-content"
+  - complementary [ref=e5] [box=0,0,64,720]:
+    - generic [ref=e6] [box=12,16,106,58]:
+      - button "返回岗位台" [ref=e7] [cursor=pointer] [box=12,16,68,58]:
+        - img [ref=e9] [box=32,36,18,18]
+      - button "展开侧边栏" [ref=e13] [cursor=pointer] [box=88,25,30,40]:
+        - img [ref=e14] [box=95,34,16,16]
+    - navigation "主导航" [ref=e16] [box=12,98,106,533]:
+      - button "岗位台" [ref=e17] [cursor=pointer] [box=12,98,106,50]:
+        - img [ref=e19] [box=56,113,18,18]
+      - button "实时助手" [ref=e23] [cursor=pointer] [box=12,155,106,50]:
+        - img [ref=e25] [box=56,171,18,18]
+      - button "模拟面试" [ref=e27] [cursor=pointer] [box=12,213,106,50]:
+        - img [ref=e29] [box=56,229,18,18]
+      - button "JD 分析" [ref=e32] [cursor=pointer] [box=12,270,106,50]:
+        - img [ref=e34] [box=56,286,18,18]
+      - button "问题库" [ref=e39] [cursor=pointer] [box=12,328,106,50]:
+        - img [ref=e41] [box=56,344,18,18]
+      - button "简历" [ref=e44] [cursor=pointer] [box=12,386,106,50]:
+        - img [ref=e46] [box=56,401,18,18]
+      - button "记录复盘" [ref=e49] [cursor=pointer] [box=12,443,106,50]:
+        - img [ref=e51] [box=56,459,18,18]
+    - button "张晨，打开账户与导入导出" [ref=e54] [cursor=pointer] [box=12,654,106,50]:
+      - img [ref=e56] [box=56,670,18,18]
+  - main [ref=e59] [box=64,0,1216,720]:
+    - generic [ref=e60] [box=96,32,1152,570]:
+      - generic [ref=e61] [box=96,32,1152,137]:
+        - generic [ref=e62] [box=125,57,608,87]
+        - button "新增岗位" [ref=e66] [cursor=pointer] [box=1106,57,114,42]
+      - region "辅助入口" [ref=e68] [box=96,193,1152,40]:
+        - button "JD 分析" [ref=e69] [cursor=pointer] [box=96,193,102,40]
+        - button "问题库" [ref=e75] [cursor=pointer] [box=206,193,96,40]
+        - button "简历" [ref=e79] [cursor=pointer] [box=309,193,82,40]
+      - region "岗位列表" [ref=e83] [box=96,257,1152,220]:
+        - button "当前岗位 某 AI 教育科技创业公司 · AI 产品运营实习生 完成度 65 某 AI 教育科技创业公司 SQL 表达 简历具备部分岗位证据，但关键词覆盖和成果表达还需要补强。" [ref=e84] [cursor=pointer] [box=96,257,1152,220]
+      - generic [ref=e100] [box=96,501,1152,101]:
+        - generic [ref=e101] [box=121,526,330,52]
+        - generic [ref=e104] [box=984,531,239,42]

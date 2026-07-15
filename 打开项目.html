@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>打开 AI 求职台</title>
+    <style>
+      :root {
+        --bg: #f6f5f1;
+        --card: #ffffff;
+        --text: #161616;
+        --muted: #686868;
+        --line: rgba(0, 0, 0, 0.08);
+        --accent: #2f6f3e;
+        --danger: #b24535;
+        --soft: #f1f3ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at top left, rgba(47, 111, 62, 0.08), transparent 28%),
+          linear-gradient(180deg, #f8f7f3 0%, #f2f1ed 100%);
+        color: var(--text);
+        font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(760px, 100%);
+        padding: 32px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--card);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .status {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0;
+        padding: 18px;
+        border-radius: 14px;
+        background: var(--soft);
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .row:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .label {
+        font-size: 15px;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+
+      .ok {
+        color: var(--accent);
+      }
+
+      .bad {
+        color: var(--danger);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      a,
+      button {
+        border: 0;
+        border-radius: 10px;
+        padding: 12px 18px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .primary {
+        color: #fff;
+        background: var(--text);
+      }
+
+      .secondary {
+        color: var(--text);
+        background: #eceee9;
+      }
+
+      code {
+        display: block;
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: #f3f4f0;
+        color: var(--text);
+        font-family: Consolas, "SF Mono", monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+
+      .note {
+        margin-top: 18px;
+        font-size: 13px;
+      }
+
+      @media (max-width: 560px) {
+        main {
+          padding: 22px;
+        }
+
+        .row {
+          display: grid;
+          gap: 6px;
+        }
+
+        .actions a,
+        .actions button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>打开 AI 求职台</h1>
+      <p>
+        这个文件就是给你双击用的。项目本体仍然跑在本地服务里，
+        不是直接靠 `index.html` 单文件运行；因为它有 React 路由、接口、登录、保存和后端能力。
+        所以双击这个入口页后，它会检测服务状态，准备好了就自动跳到完整项目。
+      </p>
+
+      <section class="status">
+        <div class="row">
+          <span class="label">前端页面</span>
+          <strong class="value" id="frontend">检测中</strong>
+        </div>
+        <div class="row">
+          <span class="label">后端接口</span>
+          <strong class="value" id="backend">检测中</strong>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="primary" id="open-app" href="http://127.0.0.1:5173/">进入完整项目</a>
+        <button class="secondary" type="button" onclick="checkStatus()">重新检测</button>
+      </div>
+
+      <code>1. 先双击「一键启动.cmd」或「启动体验.cmd」
+2. 再双击这个「打开项目.html」
+3. 检测到服务可用后会自动进入完整项目</code>
+
+      <p class="note">
+        `5173` 没变是正常的，不是你进错了。它就是当前前端开发服务端口。
+        如果你直接双击根目录的 `index.html`，不会得到完整功能，因为那不是离线单页，而是 Vite + React + Fastify 项目。
+      </p>
+    </main>
+
+    <script>
+      const frontendUrl = "http://127.0.0.1:5173/";
+      const backendUrl = "http://127.0.0.1:8787/api/health";
+
+      async function ping(url) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 1800);
+          const response = await fetch(url, { signal: controller.signal, cache: "no-store" });
+          clearTimeout(timer);
+          return response.ok;
+        } catch {
+          return false;
+        }
+      }
+
+      async function checkStatus() {
+        const [frontendReady, backendReady] = await Promise.all([ping(frontendUrl), ping(backendUrl)]);
+        const frontend = document.getElementById("frontend");
+        const backend = document.getElementById("backend");
+
+        frontend.textContent = frontendReady ? "已启动" : "未启动";
+        backend.textContent = backendReady ? "已启动" : "未启动";
+        frontend.className = `value ${frontendReady ? "ok" : "bad"}`;
+        backend.className = `value ${backendReady ? "ok" : "bad"}`;
+
+        if (frontendReady && backendReady) {
+          setTimeout(() => {
+            window.location.href = frontendUrl;
+          }, 700);
+        }
+      }
+
+      checkStatus();
+      setInterval(checkStatus, 3000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light;
+
+  /* Background */
+  --bg-page: #f7f7f5;
+  --bg-card: #ffffff;
+  --bg-surface: #f0eee8;
+  --bg-topbar: #1a1a18;
+
+  /* Text */
+  --text-primary: #1a1a18;
+  --text-secondary: #6b6b67;
+  --text-tertiary: #9e9e99;
+  --text-disabled: #c4c2bc;
+
+  /* Borders */
+  --border-default: #e8e6e0;
+  --border-light: #f0eee8;
+
+  /* Semantic */
+  --green: #2d9d6b;
+  --green-hover: #1f7a52;
+  --green-bg: rgb(45 157 107 / 0.08);
+  --green-border: rgb(45 157 107 / 0.25);
+  --red: #c4411c;
+  --red-bg: rgb(196 65 28 / 0.08);
+  --red-glow: rgb(196 65 28 / 0.12);
+  --blue: #2b5ba8;
+  --blue-bg: rgb(43 91 168 / 0.08);
+  --orange: #c4691c;
+  --orange-bg: rgb(196 105 28 / 0.06);
+  --purple: #534ab7;
+  --purple-bg: rgb(83 74 183 / 0.04);
+  --purple-tag-bg: rgb(83 74 183 / 0.1);
+
+  /* Compatibility aliases: all old names map to the new system. */
+  --color-bg: var(--bg-page);
+  --color-surface: var(--bg-card);
+  --color-surface-muted: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface);
+  --color-ink: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-line: var(--border-default);
+  --color-accent: var(--green);
+  --color-accent-strong: var(--green-hover);
+  --color-accent-soft: var(--green-bg);
+  --color-warning: var(--orange);
+  --color-danger: var(--red);
+  --color-success: var(--green);
+  --color-accent-green-bg: var(--green-bg);
+  --color-accent-gold-bg: var(--orange-bg);
+  --color-accent-red-bg: var(--red-bg);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-subtle: var(--text-tertiary);
+
+  /* Typography */
+  --font-heading: "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-body: "Noto Sans SC", "Source Han Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Consolas", monospace;
+  --text-h1: 20px;
+  --text-h2: 16px;
+  --text-h3: 14px;
+  --text-body: 14px;
+  --text-body-sm: 13px;
+  --text-caption: 12px;
+  --text-micro: 11px;
+  --leading-h: 1.4;
+  --leading-body: 1.7;
+  --leading-caption: 1.6;
+  --leading-micro: 1.5;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-full: 50%;
+  --radius: var(--radius-md);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.05);
+  --shadow-recording: 0 0 0 8px var(--red-glow);
+}

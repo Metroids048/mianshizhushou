@@ -1,0 +1,95 @@
+
+<div style="background:var(--color-background-tertiary);border-radius:var(--border-radius-lg);padding:16px;font-family:var(--font-sans)">
+  <h2 class="sr-only">模拟练习间页面线框图</h2>
+
+  <!-- Top nav + progress -->
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 16px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:13px;color:var(--color-text-secondary)">模拟练习 · 字节跳动产品经理</span>
+      <button style="font-size:12px;color:var(--color-text-tertiary);border:0.5px solid var(--color-border-tertiary);background:transparent;border-radius:4px;padding:4px 10px;cursor:pointer">结束练习</button>
+    </div>
+    <!-- Progress bar -->
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex;gap:4px;flex:1">
+        <div style="height:4px;flex:1;background:#2D9D6B;border-radius:2px"></div>
+        <div style="height:4px;flex:1;background:#2D9D6B;border-radius:2px"></div>
+        <div style="height:4px;flex:1;background:#2B5BA8;border-radius:2px"></div>
+        <div style="height:4px;flex:1;background:var(--color-border-tertiary);border-radius:2px"></div>
+        <div style="height:4px;flex:1;background:var(--color-border-tertiary);border-radius:2px"></div>
+      </div>
+      <span style="font-size:11px;color:var(--color-text-tertiary);white-space:nowrap">第 3 / 5 题</span>
+    </div>
+  </div>
+
+  <!-- Main area: 2 columns -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:320px">
+    <!-- Left: Question Card -->
+    <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:20px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;color:#534AB7;background:rgba(83,74,183,0.1);padding:3px 8px;border-radius:4px">行为类</span>
+        <span style="font-size:11px;color:var(--color-text-tertiary)">来自 JD 关键词匹配</span>
+      </div>
+
+      <div style="font-size:16px;font-weight:500;color:var(--color-text-primary);line-height:1.6">
+        请介绍一下你在校期间做过的最有挑战的一个项目，以及你是如何规划和推进的？
+      </div>
+
+      <!-- Intent (collapsible) -->
+      <div style="background:rgba(83,74,183,0.04);border-radius:var(--border-radius-md);padding:12px">
+        <div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:6px">考察意图</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.7">考察项目推进能力、跨团队协作和结果导向，期望听到STAR结构化表达</div>
+      </div>
+
+      <!-- Related evidence -->
+      <div style="border-top:0.5px solid var(--color-border-tertiary);padding-top:10px">
+        <div style="font-size:11px;color:var(--color-text-tertiary);margin-bottom:6px">关联简历证据</div>
+        <div style="font-size:12px;color:var(--color-text-primary);background:rgba(196,105,28,0.06);border-left:2px solid #C4691C;padding:6px 10px;border-radius:0 4px 4px 0">校园电商节，带领6人，GMV+40%</div>
+      </div>
+    </div>
+
+    <!-- Right: Answer + AI followup -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <!-- Answer area -->
+      <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:16px;flex:1">
+        <div style="font-size:12px;color:var(--color-text-tertiary);margin-bottom:8px">你的回答</div>
+        <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;min-height:100px;font-size:14px;color:var(--color-text-secondary);line-height:1.8">
+          我做过最有挑战的项目是大三时组织的校园电商节……（录音中 <span style="color:#E8593C">●</span>）
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <button style="width:40px;height:40px;border-radius:50%;background:#E8593C;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer">
+              <i class="ti ti-microphone" style="font-size:16px;color:#fff" aria-hidden="true"></i>
+            </button>
+            <span style="font-size:11px;color:#E8593C">录音中 · 00:42</span>
+          </div>
+          <button style="font-size:13px;color:#fff;background:#2D9D6B;border:none;border-radius:var(--border-radius-md);padding:8px 16px;cursor:pointer">提交回答</button>
+        </div>
+      </div>
+
+      <!-- AI follow-up (after submit) -->
+      <div style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--color-background-info);display:flex;align-items:center;justify-content:center">
+            <i class="ti ti-robot" style="font-size:11px;color:var(--color-text-info)" aria-hidden="true"></i>
+          </div>
+          <span style="font-size:11px;color:var(--color-text-secondary);font-weight:500">模拟追问</span>
+          <span style="font-size:10px;color:#2D9D6B;background:rgba(45,157,107,0.1);padding:2px 6px;border-radius:3px">模型生成</span>
+        </div>
+        <div style="font-size:13px;color:var(--color-text-primary);line-height:1.7">你提到团队协作，遇到意见分歧时你是怎么做的？</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom actions -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:0.5px solid var(--color-border-tertiary)">
+    <button style="font-size:13px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);background:transparent;border-radius:var(--border-radius-md);padding:8px 14px;cursor:pointer">跳过此题</button>
+    <div style="display:flex;gap:8px">
+      <button style="font-size:13px;color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);background:transparent;border-radius:var(--border-radius-md);padding:8px 14px;cursor:pointer">
+        <i class="ti ti-arrow-left" style="font-size:12px" aria-hidden="true"></i> 上一题
+      </button>
+      <button style="font-size:13px;color:var(--color-text-info);border:0.5px solid var(--color-border-info);background:var(--color-background-info);border-radius:var(--border-radius-md);padding:8px 14px;cursor:pointer">
+        下一题 <i class="ti ti-arrow-right" style="font-size:12px" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>

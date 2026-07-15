@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI 求职台体验入口</title>
+    <style>
+      :root {
+        --bg: #f8f8f7;
+        --surface: #ffffff;
+        --text: #1a1a1a;
+        --muted: #6b6b6b;
+        --accent: #3b6d11;
+        --danger: #9f2f2d;
+        --border: rgba(0, 0, 0, 0.08);
+        --code: #f1f1ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", system-ui, sans-serif;
+      }
+
+      main {
+        width: min(720px, calc(100vw - 32px));
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .status {
+        display: grid;
+        gap: 10px;
+        margin: 24px 0;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      a,
+      button {
+        border: 0;
+        border-radius: 6px;
+        background: var(--text);
+        color: white;
+        padding: 12px 16px;
+        font-size: 14px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: var(--code);
+        color: var(--text);
+      }
+
+      code {
+        display: block;
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        background: var(--code);
+        color: var(--text);
+        font-family: "SF Mono", Consolas, monospace;
+        font-size: 13px;
+      }
+
+      .note {
+        margin-top: 14px;
+        font-size: 13px;
+      }
+
+      .ok {
+        color: var(--accent);
+      }
+
+      .bad {
+        color: var(--danger);
+      }
+
+      @media (max-width: 520px) {
+        main {
+          padding: 22px;
+        }
+
+        .row {
+          display: grid;
+          gap: 4px;
+        }
+
+        a,
+        button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>AI 求职台体验入口</h1>
+      <p>
+        此页面会检测本地后端和前端是否已启动；两项都可用后会自动进入产品页面。
+        如需一键启动，请双击项目根目录的 <strong>一键启动.cmd</strong>。
+      </p>
+
+      <div class="status">
+        <div class="row"><span>后端服务 http://127.0.0.1:8787</span><strong id="backend">检测中</strong></div>
+        <div class="row"><span>前端页面 http://127.0.0.1:5173</span><strong id="frontend">检测中</strong></div>
+      </div>
+
+      <div class="actions">
+        <a id="open" href="http://127.0.0.1:5173/">打开产品体验</a>
+        <button class="secondary" type="button" onclick="check()">重新检测</button>
+      </div>
+
+      <code>双击 一键启动.cmd</code>
+      <p class="note">或在终端执行 npm run start:experience。测试阶段默认模型为 deepseek-chat；上线前可通过 DEEPSEEK_MODEL 环境变量切换到正式模型。</p>
+    </main>
+
+    <script>
+      async function ping(url) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(function () {
+            controller.abort();
+          }, 1800);
+          const response = await fetch(url, { signal: controller.signal, cache: "no-store" });
+          clearTimeout(timer);
+          return response.ok;
+        } catch {
+          return false;
+        }
+      }
+
+      async function check() {
+        const backendReady = await ping("http://127.0.0.1:8787/api/health");
+        const frontendReady = await ping("http://127.0.0.1:5173/");
+        const backend = document.getElementById("backend");
+        const frontend = document.getElementById("frontend");
+
+        backend.textContent = backendReady ? "已启动" : "未启动";
+        backend.className = backendReady ? "ok" : "bad";
+        frontend.textContent = frontendReady ? "已启动" : "未启动";
+        frontend.className = frontendReady ? "ok" : "bad";
+
+        if (backendReady && frontendReady) {
+          setTimeout(function () {
+            window.location.href = "http://127.0.0.1:5173/";
+          }, 900);
+        }
+      }
+
+      check();
+      setInterval(check, 3000);
+    </script>
+  </body>
+</html>
