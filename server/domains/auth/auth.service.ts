@@ -9,6 +9,7 @@ import type { MailService } from "../../mail/service";
 
 const DEFAULT_JWT_SECRET = "ai-job-dev-secret-change-in-production";
 const JWT_EXPIRES_IN = "30d";
+const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const SALT_LENGTH = 32;
 const KEY_LENGTH = 64;
 const EMAIL_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
@@ -172,7 +173,7 @@ export function createAuthService(db: AppDb, mailer: MailService) {
   function internalCreateSession(userId: string): AuthTokens {
     const jti = makeId("jti");
     const now = nowIso();
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+    const expiresAt = new Date(Date.now() + SESSION_TTL_MS).toISOString();
     db.insertSession({
       id: makeId("sess"),
       userId,

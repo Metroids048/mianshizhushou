@@ -63,4 +63,17 @@ describe("AccountPage quota display", () => {
     expect(scope.getByText("简历 AI")).toBeInTheDocument();
     expect(scope.getByText("岗位分析")).toBeInTheDocument();
   });
+
+  it("can hide policy links when embedded in the focused interview tool", async () => {
+    vi.mocked(apiFetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ features: {} }),
+    } as Response);
+
+    render(<AccountPage journeyState="ready" showPolicyLinks={false} />);
+
+    await screen.findByRole("heading", { name: "使用额度" });
+    expect(screen.queryByText("用户协议")).not.toBeInTheDocument();
+    expect(screen.queryByText("隐私政策")).not.toBeInTheDocument();
+  });
 });

@@ -151,6 +151,16 @@ function checkProductionSecrets() {
   log("Production JWT_SECRET configured");
 }
 
+function checkRemoteLlmProvider() {
+  const configured = [process.env.DEEPSEEK_API_KEY, process.env.OPENROUTER_API_KEY, process.env.GITHUB_MODELS_TOKEN]
+    .some((value) => value?.trim());
+  if (configured) {
+    log("Remote LLM provider configured");
+  } else {
+    log("No remote LLM provider configured. AI features will use local fallback until a provider key is set.");
+  }
+}
+
 function main() {
   process.chdir(root);
   ensureNodeVersion();
@@ -158,6 +168,7 @@ function main() {
   ensureDirs();
   ensureDependencies();
   checkSqliteRuntime();
+  checkRemoteLlmProvider();
   checkProductionSecrets();
   log("Environment is ready");
 }

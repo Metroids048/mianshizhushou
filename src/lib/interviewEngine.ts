@@ -76,7 +76,7 @@ export function analyzeResume(text: string): ResumeAnalysis {
   return {
     name,
     targetRole,
-    summary: `${name}具备${skills.slice(0, 4).join("、")}相关经历，适合围绕校招岗位做证据化表达训练。`,
+    summary: `${name}具备${skills.slice(0, 4).join("、") || "相关能力"}经历，适合围绕目标岗位做证据化表达训练。`,
     evidence,
     skills,
     metrics,
@@ -441,7 +441,7 @@ function extractInlineLabelValue(line: string, labels: string[]): string | undef
   const normalizedLine = line.replace(/\s+/g, " ").trim();
   for (const label of labels) {
     const escaped = escapeRegExp(label);
-    const regex = new RegExp(`(?:^|\\s|[|｜/])${escaped}\\s*[：:]\\s*([^\\n|｜/]+?)\\s*(?=(?:${labels.map(escapeRegExp).join("|")})\\s*[：:]|$)`);
+    const regex = new RegExp(`(?:^|\\s|[|｜/，,、；;])${escaped}\\s*[：:]\\s*([^\\n|｜/，,、；;]+?)\\s*(?=(?:${labels.map(escapeRegExp).join("|")})\\s*[：:]|$)`);
     const match = normalizedLine.match(regex);
     const value = sanitizeLabeledValue(match?.[1]);
     if (value) return value;

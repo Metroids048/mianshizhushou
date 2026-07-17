@@ -13,6 +13,7 @@ import {
   RefreshCw,
   Send,
   Sparkles,
+  UserRound,
 } from "lucide-react";
 import { startTransition, useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import {
@@ -37,10 +38,12 @@ import { useAuth, type AuthSession } from "../../lib/auth";
 import { createProfile, generateCueCard } from "../../lib/interviewEngine";
 import { makeId, nowIso } from "../../lib/ids";
 import { describeAiFailure } from "../../lib/requestError";
-import { startBrowserAudioDictation, startDictation, type DictationHandle } from "../../lib/speech";
+import { getSpeechRecognitionSupport, startBrowserAudioDictation, startDictation, type DictationHandle } from "../../lib/speech";
 import type { AnswerCueCard, CandidateProfile, EvidenceItem, Position, PositionMaterial } from "../../types";
+import { AccountPage } from "../account/AccountPage";
+import { ForgotPasswordPage } from "../auth/RecoveryPages";
 
-type ToolPage = "desk" | "library";
+type ToolPage = "desk" | "library" | "account" | "forgot";
 type ListenMode = "manual" | "mic" | "browser" | "bridge";
 type GenerationMode = "manual" | "auto";
 type CaptureState = "idle" | "listening" | "ready" | "generating" | "error";
@@ -86,11 +89,16 @@ const EMPTY_META: AiRunMeta = {
 
 function currentPageFromLocation(): ToolPage {
   if (typeof window === "undefined") return "desk";
+  if (window.location.pathname === "/account") return "account";
+  if (window.location.pathname === "/forgot-password") return "forgot";
   return window.location.pathname === "/library" ? "library" : "desk";
 }
 
 function normalizePath(page: ToolPage) {
-  return page === "library" ? "/library" : "/";
+  if (page === "library") return "/library";
+  if (page === "account") return "/account";
+  if (page === "forgot") return "/forgot-password";
+  return "/";
 }
 
 function firstPosition(positions: Position[], activePositionId: string): Position | undefined {
@@ -197,6 +205,7 @@ export function YinpinJiantingApp() {
 
   const activePosition = useMemo(() => firstPosition(positions, activePositionId), [positions, activePositionId]);
   const workspace = useMemo(() => toWorkspace(profile, activePosition, cueCardHistory, audioDevices), [profile, activePosition, cueCardHistory, audioDevices]);
+  const speechSupport = useMemo(() => getSpeechRecognitionSupport(), []);
 
   const syncSnapshot = useCallback((snapshot: { profile: CandidateProfile; positions: Position[]; activePositionId: string }) => {
     setProfile(snapshot.profile);
@@ -616,6 +625,11 @@ export function YinpinJiantingApp() {
       {authMode === "register" ? <input className="yp-input" value={authName} onChange={(event) => setAuthName(event.target.value)} placeholder="昵称，可选" /> : null}
       {authError ? <p className="yp-error">{authError}</p> : null}
       <button className="yp-button primary" type="button" onClick={submitAuth}>{authMode === "register" ? "注册并进入工具" : "登录"}</button>
+      {authMode === "login" ? (
+        <button className="yp-link-button" type="button" onClick={() => navigate("forgot")}>
+          忘记密码？查看处理方式
+        </button>
+      ) : null}
     </section>
   ) : null;
 
@@ -643,6 +657,11 @@ export function YinpinJiantingApp() {
           <button type="button" className={page === "library" ? "active" : ""} onClick={() => navigate("library")}>
             <Database size={16} /> 资料库
           </button>
+          {auth.isLoggedIn ? (
+            <button type="button" className={page === "account" ? "active" : ""} onClick={() => navigate("account")}>
+              <UserRound size={16} /> 账号
+            </button>
+          ) : null}
         </nav>
         <div className="yp-account">
           {auth.isLoggedIn ? <span>{auth.session?.displayName || "已登录"}</span> : <span>未登录</span>}
@@ -680,6 +699,13 @@ export function YinpinJiantingApp() {
               <button type="button" className={generationMode === "manual" ? "active" : ""} onClick={() => setGenerationMode("manual")}>手动生成</button>
               <button type="button" className={generationMode === "auto" ? "active" : ""} onClick={() => setGenerationMode("auto")}>自动生成</button>
             </div>
+            {listenMode === "mic" && !speechSupport.fullySupported ? (
+              <p className="yp-hint">
+                {speechSupport.supported
+                  ? "当前浏览器的语音识别支持有限，建议使用 Chrome 或 Edge；也可以直接编辑下方文字。"
+                  : "当前浏览器不支持语音识别，请直接编辑下方文字，或改用系统音频桥。"}
+              </p>
+            ) : null}
             <div className="yp-listen-actions">
               {listenMode === "mic" ? (
                 captureState === "listening" ? (
@@ -754,6 +780,11 @@ export function YinpinJiantingApp() {
             {currentCard ? (
               <article className="yp-cue-card">
                 <span className="yp-status">{readableStatus(cueMeta)}</span>
+                {cueMeta?.backendStatus !== "success" ? (
+                  <div className="yp-ai-notice" role="status">
+                    当前显示本地练习内容，未连接真实模型。请配置可用的 AI 服务后重试，避免把练习稿当成正式回答。
+                  </div>
+                ) : null}
                 <h3>{currentCard.questionText}</h3>
                 <section>
                   <strong>推荐开场</strong>
@@ -821,7 +852,7 @@ export function YinpinJiantingApp() {
             </div>
           </aside>
         </section>
-      ) : (
+      ) : page === "library" ? (
         <section className="yp-library">
           <section className="yp-panel yp-library-main">
             <div className="yp-section-head">
@@ -894,6 +925,12 @@ export function YinpinJiantingApp() {
             </div>
           </aside>
         </section>
+      ) : page === "account" ? (
+        <section className="yp-account-page">
+          <AccountPage journeyState="ready" showPolicyLinks={false} />
+        </section>
+      ) : (
+        <ForgotPasswordPage />
       )}
     </main>
   );

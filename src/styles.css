@@ -141,6 +141,17 @@
   width: 100%;
 }
 
+.yp-link-button {
+  border: 0;
+  background: transparent;
+  color: #1b5f8f;
+  padding: 4px 0;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+}
+
 .yp-icon-button {
   width: 38px;
   padding: 0;
@@ -240,6 +251,16 @@
   margin: 0;
   background: #eef8f1;
   color: #23643b;
+}
+
+.yp-ai-notice {
+  border: 1px solid #e8c98c;
+  border-radius: 8px;
+  background: #fff8e8;
+  color: #6a5424;
+  padding: 10px 12px;
+  line-height: 1.55;
+  font-size: 13px;
 }
 
 .yp-bridge-checks {

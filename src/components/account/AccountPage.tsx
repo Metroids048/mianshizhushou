@@ -18,7 +18,7 @@ type DraftState = {
   feedbackContact: string;
 };
 
-export function AccountPage({ journeyState }: { journeyState?: UserJourneyState }) {
+export function AccountPage({ journeyState, showPolicyLinks = true }: { journeyState?: UserJourneyState; showPolicyLinks?: boolean }) {
   const { session, isLoggedIn, clearAuth, updateSession } = useAuth();
   const draftKey = session?.userId ?? "guest";
 
@@ -38,13 +38,14 @@ export function AccountPage({ journeyState }: { journeyState?: UserJourneyState 
   }
 
   return (
-    <AccountWorkspace
-      key={draftKey}
-      journeyState={journeyState}
-      session={session}
-      clearAuth={clearAuth}
-      updateSession={updateSession}
-    />
+      <AccountWorkspace
+        key={draftKey}
+        journeyState={journeyState}
+        session={session}
+        clearAuth={clearAuth}
+        updateSession={updateSession}
+        showPolicyLinks={showPolicyLinks}
+      />
   );
 }
 
@@ -53,11 +54,13 @@ function AccountWorkspace({
   session,
   clearAuth,
   updateSession,
+  showPolicyLinks,
 }: {
   journeyState?: UserJourneyState;
   session: AuthSession;
   clearAuth: () => void;
   updateSession: (next: AuthSession | null) => void;
+  showPolicyLinks: boolean;
 }) {
   const JOURNEY_LABELS: Record<UserJourneyState, string> = {
     guest: "访客",
@@ -243,7 +246,7 @@ function AccountWorkspace({
         <QuotaPanel />
 
         <div className="account-card">
-          <h2 className="account-card-title">数据与合规</h2>
+          <h2 className="account-card-title">数据管理</h2>
           <div className="account-actions">
             <button type="button" className="account-btn" onClick={handleExport} disabled={exporting}>
               <Download size={14} />
@@ -254,15 +257,17 @@ function AccountWorkspace({
             </button>
           </div>
           <p className="account-card-hint">当前产品只使用必要 Cookie / 本地存储来保持登录状态和草稿缓存。</p>
-          <p className="account-card-hint account-policy-links">
-            <button type="button" className="account-link" onClick={() => navigateTo("/terms-of-service")}>用户协议</button>
-            <span aria-hidden="true"> · </span>
-            <button type="button" className="account-link" onClick={() => navigateTo("/privacy-policy")}>隐私政策</button>
-            <span aria-hidden="true"> · </span>
-            <button type="button" className="account-link" onClick={() => navigateTo("/help")}>帮助中心</button>
-            <span aria-hidden="true"> · </span>
-            <button type="button" className="account-link" onClick={() => navigateTo("/about")}>关于我们</button>
-          </p>
+          {showPolicyLinks ? (
+            <p className="account-card-hint account-policy-links">
+              <button type="button" className="account-link" onClick={() => navigateTo("/terms-of-service")}>用户协议</button>
+              <span aria-hidden="true"> · </span>
+              <button type="button" className="account-link" onClick={() => navigateTo("/privacy-policy")}>隐私政策</button>
+              <span aria-hidden="true"> · </span>
+              <button type="button" className="account-link" onClick={() => navigateTo("/help")}>帮助中心</button>
+              <span aria-hidden="true"> · </span>
+              <button type="button" className="account-link" onClick={() => navigateTo("/about")}>关于我们</button>
+            </p>
+          ) : null}
         </div>
 
         <div className="account-card">

@@ -986,6 +986,22 @@ describe("local backend API", () => {
       await app.close();
     });
 
+    it("reports the same 30-day expiry that the JWT uses", async () => {
+      const app = buildServer({ dbPath: testDbPath(), llmClient: new LocalFallbackProvider() });
+      const before = Date.now();
+      const response = await app.inject({
+        method: "POST",
+        url: "/api/auth/register",
+        payload: { phone: "13800138003", password: "Password123" },
+      });
+
+      expect(response.statusCode).toBe(201);
+      const expiresAt = new Date(response.json().tokens.expiresAt).getTime();
+      expect(expiresAt - before).toBeGreaterThan(29 * 24 * 60 * 60 * 1000);
+      expect(expiresAt - before).toBeLessThan(31 * 24 * 60 * 60 * 1000);
+      await app.close();
+    });
+
     it("treats an empty JWT_SECRET placeholder as unconfigured in local mode", async () => {
       process.env.JWT_SECRET = "";
       const app = buildServer({ dbPath: testDbPath(), llmClient: new LocalFallbackProvider() });

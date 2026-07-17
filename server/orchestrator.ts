@@ -1598,6 +1598,7 @@ function buildResumeFallback(request: ResumeAiRequest, position?: Position): Res
   const target = request.action === "full" ? "整份简历" : request.sectionTitle || "当前区块";
   const matchHint = position ? `当前岗位重点是 ${position.job.hardSkills.slice(0, 4).join("、") || "核心能力证据"}。` : "先把经历写具体，再补结果。";
   const normalizedCurrentText = request.currentText.replace(/\s+/g, " ").trim();
+  const sourceText = normalizedCurrentText.replace(/[。.!！?？；;，,]+$/g, "");
   if (request.action === "full") {
     return {
       reply: "我先给你一版可直接回写到各简历区块的本地练习稿，重点是把空泛表述改成可验证的岗位证据。",
@@ -1606,7 +1607,7 @@ function buildResumeFallback(request: ResumeAiRequest, position?: Position): Res
         "- 用一句话先讲清你最贴近岗位的核心优势，例如：具备面试产品、增长分析与项目落地的复合经历。",
         "",
         "项目经历",
-        `- 按 STAR 重写最相关项目：${normalizedCurrentText.slice(0, 140) || "补一段最能证明岗位相关性的项目经历"}。`,
+        `- 按 STAR 重写最相关项目：${sourceText.slice(0, 140) || "补一段最能证明岗位相关性的项目经历"}。`,
         `- 明确动作、方法和结果，优先补齐 ${position?.job.hardSkills.slice(0, 3).join("、") || "关键技能"} 的使用细节。`,
         "",
         "技能与工具",
@@ -1630,7 +1631,7 @@ function buildResumeFallback(request: ResumeAiRequest, position?: Position): Res
     suggestion: [
       `${target}优化版：`,
       "1. 先用一句结论说明你的核心职责或结果。",
-      `2. 再补真实动作：${request.currentText.replace(/\s+/g, " ").trim().slice(0, 180) || "补一段最相关经历"}`,
+      `2. 再补真实动作：${sourceText.slice(0, 180) || "补一段最相关经历"}`,
       `3. 最后补结果和复盘：${matchHint}`,
     ].join("\n"),
     applyTarget: "section",

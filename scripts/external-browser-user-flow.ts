@@ -191,6 +191,16 @@ async function audioAndResumeSmoke(page: Page) {
   if (elapsed > 8_000) throw new Error(`resume-ai exceeded 8s threshold: ${elapsed}ms`);
 }
 
+async function accountAndRecoverySmoke(page: Page) {
+  await page.getByRole("button", { name: "账号" }).click();
+  await expect(page.getByRole("heading", { name: "账户中心" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("heading", { name: "使用额度" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "导出数据" })).toBeVisible();
+
+  await page.goto(`${frontendUrl}/forgot-password`, { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: "内测阶段暂不支持邮件找回" })).toBeVisible({ timeout: 10_000 });
+}
+
 async function mobileSmoke(page: Page) {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const path of ["/", "/library"]) {
@@ -238,6 +248,7 @@ async function main() {
     await saveLibrary(page);
     await cueCardFlow(page);
     await audioAndResumeSmoke(page);
+    await accountAndRecoverySmoke(page);
     await assertNoHorizontalOverflow(page, "desktop 1280x720");
     await page.screenshot({ path: join(artifactsDir, "desktop-yinpinjianting-1280x720.png"), fullPage: true });
     await mobileSmoke(page);

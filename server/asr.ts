@@ -36,7 +36,8 @@ export function createAsrRelay(onEvent: (event: AsrEvent) => void): XfyunRelay |
 }
 
 function createLocalWhisperRelay(onEvent: (event: AsrEvent) => void): XfyunRelay | null {
-  const python = process.env.LOCAL_WHISPER_PYTHON?.trim() || process.env.AGENT_PYTHON?.trim() || "agent-python";
+  const defaultPython = process.platform === "win32" ? "python" : "python3";
+  const python = process.env.LOCAL_WHISPER_PYTHON?.trim() || process.env.AGENT_PYTHON?.trim() || defaultPython;
   const worker = process.env.LOCAL_WHISPER_WORKER?.trim()
     || resolve(dirname(fileURLToPath(import.meta.url)), "..", "scripts", "local_whisper_worker.py");
   const model = process.env.LOCAL_WHISPER_MODEL?.trim() || "base";

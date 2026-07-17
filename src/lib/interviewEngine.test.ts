@@ -65,6 +65,13 @@ describe("interviewEngine", () => {
     expect(job.title).toBe("AI 产品运营");
   });
 
+  it("parses labeled fields after Chinese punctuation", () => {
+    const job = analyzeJob("招聘 AI 产品经理，负责 AI 求职助手，公司：字节跳动");
+
+    expect(job.company).toBe("字节跳动");
+    expect(job.title).toBe("产品经理");
+  });
+
   it("uses heuristic extraction when jd omits explicit line-prefixed labels", () => {
     const job = analyzeJob("北极星智能科技招聘产品经理，负责面试产品优化、RAG 召回和数据分析。");
 
